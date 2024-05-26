@@ -1,5 +1,15 @@
+import { Flex } from "@sparrowengg/twigs-react";
+
 const Superiority = () => {
-  return <div>Superiority</div>;
+  return (
+    <Flex
+      flexDirection="column"
+      alignItems="center"
+      css={{
+        padding: "34px",
+      }}
+    ></Flex>
+  );
 };
 
 export default Superiority;

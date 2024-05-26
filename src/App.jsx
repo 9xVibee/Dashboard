@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@sparrowengg/twigs-react";
+import { ThemeProvider, TooltipProvider } from "@sparrowengg/twigs-react";
 import Home from "./Components/Home";
 import theme from "./../twings.config";
 import { useSelector } from "react-redux";
@@ -8,7 +8,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme.theme[mode]}>
-      <Home />
+      <TooltipProvider delayDuration={0}>
+        <Home />
+      </TooltipProvider>
     </ThemeProvider>
   );
 };

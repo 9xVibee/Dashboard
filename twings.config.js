@@ -20,6 +20,7 @@ export default {
         "5xl": "5rem",
       },
     },
+
     dark: {
       colors: {
         primary: "#2C2C2E",

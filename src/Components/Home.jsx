@@ -1,7 +1,7 @@
 import Sidebar from "./Sidebar";
-import Header from "./Header";
-import Dashboard from "./Dashboard";
-import Superiority from "./Superiority";
+// import Header from "./Header";
+// import Dashboard from "./Dashboard";
+// import Superiority from "./Superiority";
 import { Flex } from "@sparrowengg/twigs-react";
 
 const Home = () => {
@@ -9,14 +9,15 @@ const Home = () => {
     <Flex
       css={{
         height: "100vh",
+        backgroundColor: "$secondary",
       }}
     >
       <Sidebar />
       <Flex flexDirection="column">
-        <Header />
+        {/* <Header /> */}
         <Flex>
-          <Dashboard />
-          <Superiority />
+          {/* <Dashboard /> */}
+          {/* <Superiority /> */}
         </Flex>
       </Flex>
     </Flex>

@@ -6,6 +6,7 @@ export default {
         secondary: "#F2F2F7",
         textPrimary: "#11263C",
         textSecondary: "#D0D1D2",
+        purple: "#422F8A",
       },
       fontSizes: {
         xxs: "0.5rem",

@@ -11,7 +11,17 @@ import SideBarIcon1 from "./../asset/sidebarImg1.svg";
 import SideBarIcon2 from "./../asset/sidebarImg2.svg";
 import SideBarIcon3 from "./../asset/sidebarImg3.svg";
 import MessageIcon from "./../asset/message-square.svg";
+
+import Icon1 from "./../asset/icon1.svg";
+import Icon2 from "./../asset/icon2.svg";
+import Icon3 from "./../asset/icon3.svg";
+import Icon4 from "./../asset/icon4.svg";
+import Icon5 from "./../asset/icon5.svg";
+
 import { useState } from "react";
+
+const imgArr = [SideBarIcon1, SideBarIcon2, SideBarIcon3];
+const IconArr = [Icon1, Icon2, Icon3, Icon4, Icon5];
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,47 +63,79 @@ const Sidebar = () => {
 
           <Box
             css={{
-              margin: "10px",
-              width: "100%",
+              width: "40px",
+              background:
+                "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)",
+              height: "2px",
+              marginTop: "2px",
+              marginBottom: "13px",
             }}
           ></Box>
 
-          <img
-            src={SideBarIcon1}
-            style={{
-              width: "40px",
-              height: "40px",
-              margin: "13px 0",
-            }}
-            alt=""
-          />
-
-          <img
-            src={SideBarIcon2}
-            style={{
-              width: "40px",
-              height: "40px",
-              margin: "13px 0",
-            }}
-            alt=""
-          />
-
-          <img
-            src={SideBarIcon3}
-            style={{
-              width: "40px",
-              height: "40px",
-              margin: "13px 0",
-            }}
-            alt=""
-          />
+          {imgArr.map((url, idx) => {
+            return (
+              <img
+                src={url}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  margin: "13px 0",
+                  cursor: "pointer",
+                }}
+                key={idx}
+                alt=""
+              />
+            );
+          })}
 
           <Box
             css={{
-              height: "13px",
-              width: "100%",
+              width: "40px",
+              margin: "10px",
+              background:
+                "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)",
+              height: "2px",
             }}
           ></Box>
+
+          {/* Icons */}
+          <Flex
+            flexDirection="column"
+            alignItems="center"
+            css={{
+              padding: "2px",
+              backgroundColor: "$secondary",
+              borderRadius: "15px",
+              marginTop: "13px",
+            }}
+            gap="8px"
+          >
+            {IconArr.map((icon, idx) => {
+              return (
+                <Flex
+                  key={idx}
+                  css={{
+                    backgroundColor: idx === 0 ? "$primary" : "",
+                    borderRadius: "15px",
+                    width: "40px",
+                    height: "40px",
+                    boxShadow: idx === 0 ? "0px 4px 4px 0px #00000014" : "",
+                  }}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <img
+                    src={icon}
+                    alt=""
+                    style={{
+                      width: "14px",
+                      height: "14px",
+                    }}
+                  />
+                </Flex>
+              );
+            })}
+          </Flex>
         </Flex>
 
         {/* lower container */}

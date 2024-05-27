@@ -3,8 +3,19 @@ import SearchIcon from "./../asset/search.svg";
 import DownArrow from "./../asset/downArrow.svg";
 import Profile from "./../asset/profile.png";
 import Sun from "./../asset/sun.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { DarkMode, LightMode } from "../redux/light-dark/lightDarkTypes";
 
 const Header = () => {
+  const mode = useSelector((store) => store.lightDarkMode);
+  const dispatch = useDispatch();
+
+  const handleModeChange = () => {
+    dispatch({
+      type: mode === LightMode ? DarkMode : LightMode,
+    });
+  };
+
   return (
     <Flex
       css={{
@@ -49,7 +60,17 @@ const Header = () => {
             Events
           </Text>
         </Flex>
-        <Box>|</Box>
+
+        <Box
+          css={{
+            width: "2px",
+            height: "40px",
+            transform: "rotate(180deg)",
+            background:
+              "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)",
+          }}
+        ></Box>
+
         <img
           src={SearchIcon}
           alt=""
@@ -108,6 +129,7 @@ const Header = () => {
               margin: "10px",
               cursor: "pointer",
             }}
+            onClick={handleModeChange}
           />
         </Tooltip>
       </Flex>

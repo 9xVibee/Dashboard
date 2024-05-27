@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 const App = () => {
   const mode = useSelector((store) => store.lightDarkMode);
 
+  console.log(theme.theme[mode]);
+
   return (
     <ThemeProvider theme={theme.theme[mode]}>
       <TooltipProvider delayDuration={0}>

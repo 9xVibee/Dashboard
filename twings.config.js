@@ -7,6 +7,7 @@ export default {
         textPrimary: "#11263C",
         textSecondary: "#D0D1D2",
         purple: "#422F8A",
+        border: "#ECE9F1",
       },
       fontSizes: {
         xxs: "0.5rem",

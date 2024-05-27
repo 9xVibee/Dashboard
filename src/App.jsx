@@ -1,15 +1,27 @@
-import { ThemeProvider, TooltipProvider } from "@sparrowengg/twigs-react";
+import {
+  ThemeProvider,
+  TooltipProvider,
+  createTheme,
+} from "@sparrowengg/twigs-react";
 import Home from "./Components/Home";
-import theme from "./../twings.config";
 import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+import theme from "./../twings.config";
 
 const App = () => {
   const mode = useSelector((store) => store.lightDarkMode);
+  const strRef = useRef("");
 
-  console.log(theme.theme[mode]);
+  useEffect(() => {
+    if (strRef.current)
+      document.documentElement.classList.remove(strRef.current);
+
+    strRef.current = createTheme(theme.theme[mode]);
+    document.documentElement.classList.add(strRef.current);
+  }, [mode]);
 
   return (
-    <ThemeProvider theme={theme.theme[mode]}>
+    <ThemeProvider>
       <TooltipProvider delayDuration={0}>
         <Home />
       </TooltipProvider>

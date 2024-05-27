@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const LightDarkModeReducer = (state = initialState, action) => {
-  console.log("REDUCER ; ", state);
   switch (action.type) {
     case LightMode: {
       return { lightDarkMode: "light" };

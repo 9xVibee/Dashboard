@@ -1,7 +1,13 @@
-import { Box, Flex, Text } from "@sparrowengg/twigs-react";
+import { Box, Flex, Text, Calendar } from "@sparrowengg/twigs-react";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverArrow,
+  PopoverContent,
+} from "@sparrowengg/twigs-react";
 
-import CalenderIcon from "./../asset/calendar.svg";
-import CalenderIconDark from "./../asset/calendarDark.svg";
+import { CalendarIcon } from "./Icons";
+
 import LeftArrow from "./../asset/leftArrow.svg";
 import moonIconDashboard from "./../asset/moonSvgDemo.svg";
 import Plus from "./../asset/plus.svg";
@@ -11,39 +17,26 @@ import AlertCircle2 from "./../asset/alert-circle2.svg";
 import HorizontalDots from "./../asset/more-horizontal.svg";
 import HorizontalDotsDark from "./../asset/more-horizontalDark.svg";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import AreaChartComp from "./AreaChart";
 import PieBarContainer from "./PieBarContainer";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 import { useSelector } from "react-redux";
+import { parseDate } from "@internationalized/date";
 
 const Dashboard = () => {
-  const [selectedDate, setSelectedDate] = useState("");
-  const [formattedDate, setFormattedDate] = useState("");
-  const dateInputRef = useRef(null);
+  const [value, setValue] = useState(parseDate("2023-07-24"));
 
   const mode = useSelector((store) => store.lightDarkMode);
 
-  const handleDateChange = (event) => {
-    const date = new Date(event.target.value);
-    const options = { month: "long", year: "numeric" };
-    const formatted = date.toLocaleDateString("en-US", options);
-    setSelectedDate(event.target.value);
+  function FormattedDateFn() {
+    const dateObj = new Date(value);
 
-    const arr = formatted.split(" ");
-    setFormattedDate(
-      (arr[0].length > 3 ? arr[0].substring(0, 3) : arr[0]) + " " + arr[1]
-    );
-  };
+    const monthStr = dateObj.toLocaleString("default", { month: "long" });
+    const yearNum = dateObj.getFullYear();
 
-  useEffect(() => {
-    const date = new Date();
-    const options = { month: "long", year: "numeric" };
-    const formatted = date.toLocaleDateString("en-US", options);
-    setSelectedDate(date);
-
-    setFormattedDate(formatted);
-  }, []);
+    return `${monthStr} ${yearNum}`;
+  }
 
   return (
     <Flex
@@ -180,58 +173,36 @@ const Dashboard = () => {
             Provisions Month
           </Text>
 
-          <Flex
-            alignItems="center"
-            css={{
-              position: "relative",
-              width: "134px",
-              height: "30px",
-              border: "1px solid $secondaryLight",
-              borderRadius: "5px",
-            }}
-          >
-            <Flex
-              css={{
-                position: "absolute",
-                backgroundColor: "$primary",
-                pointerEvents: "none",
-                padding: "4px 10px",
-                width: "100%",
-              }}
-              gap="15px"
-              justifyContent="space-between"
-            >
-              <Text
+          <Popover>
+            <PopoverTrigger asChild>
+              <Flex
+                alignItems="center"
+                gap="10px"
                 css={{
-                  fontSize: "$sm",
-                  color: "$textPrimary",
-                }}
-              >
-                {formattedDate}
-              </Text>
-              <img
-                src={mode === LightMode ? CalenderIcon : CalenderIconDark}
-                alt=""
-                style={{
-                  width: "14px",
-                  height: "14px",
+                  border: "1px solid $border",
+                  padding: "8px",
+                  borderRadius: "8px",
                   cursor: "pointer",
                 }}
-              />
-            </Flex>
+              >
+                <Text>{FormattedDateFn()}</Text>
+                <CalendarIcon color={""} />
+              </Flex>
+            </PopoverTrigger>
 
-            <input
-              type="date"
-              id="hidden-date-input"
-              value={selectedDate}
-              onChange={handleDateChange}
-              ref={dateInputRef}
-              style={{
-                width: "126px",
-                height: "20px",
+            <PopoverContent
+              css={{
+                width: "auto",
               }}
-            />
-          </Flex>
+            >
+              <Calendar
+                onChange={setValue}
+                value={value}
+                minValue={parseDate("2023-07-10")}
+              />
+              <PopoverArrow />
+            </PopoverContent>
+          </Popover>
 
           <Flex
             css={{

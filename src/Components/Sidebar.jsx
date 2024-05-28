@@ -11,6 +11,7 @@ import SideBarIcon1 from "./../asset/sidebarImg1.svg";
 import SideBarIcon2 from "./../asset/sidebarImg2.svg";
 import SideBarIcon3 from "./../asset/sidebarImg3.svg";
 import MessageIcon from "./../asset/message-square.svg";
+import MessageIconLight from "./../asset/message-squarelight.svg";
 
 import Icon1 from "./../asset/icon1.svg";
 import Icon2 from "./../asset/icon2.svg";
@@ -18,13 +19,45 @@ import Icon3 from "./../asset/icon3.svg";
 import Icon4 from "./../asset/icon4.svg";
 import Icon5 from "./../asset/icon5.svg";
 
+// Light icons
+import lightIcon from "./../asset/commandLight.svg";
+import lightIcon2 from "./../asset/pie-chartlight.svg";
+import lightIcon3 from "./../asset/clockLight.svg";
+import lightIcon4 from "./../asset/globelight.svg";
+import lightIcon5 from "./../asset/loaderlight.svg";
+
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
 const imgArr = [SideBarIcon1, SideBarIcon2, SideBarIcon3];
-const IconArr = [Icon1, Icon2, Icon3, Icon4, Icon5];
+const IconArr = [
+  {
+    light: Icon1,
+    dark: lightIcon,
+  },
+  {
+    light: Icon2,
+    dark: lightIcon2,
+  },
+  {
+    light: Icon3,
+    dark: lightIcon3,
+  },
+  {
+    light: Icon4,
+    dark: lightIcon4,
+  },
+  {
+    light: Icon5,
+    dark: lightIcon5,
+  },
+];
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const mode = useSelector((store) => store.lightDarkMode);
 
   return (
     <>
@@ -63,12 +96,14 @@ const Sidebar = () => {
 
           <Box
             css={{
-              width: "40px",
+              width: "2px",
+              height: "40px",
+              transform: "rotate(90deg)",
+              marginTop: "-16px",
               background:
-                "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)",
-              height: "2px",
-              marginTop: "2px",
-              marginBottom: "13px",
+                mode === LightMode
+                  ? "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)"
+                  : "linear-gradient(180deg, rgba(44, 44, 46, 0) 0%, rgba(84, 84, 88, 0.65) 51.44%, rgba(44, 44, 46, 0) 100%)",
             }}
           ></Box>
 
@@ -90,11 +125,13 @@ const Sidebar = () => {
 
           <Box
             css={{
-              width: "40px",
-              margin: "10px",
+              width: "2px",
+              height: "40px",
+              transform: "rotate(90deg)",
               background:
-                "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)",
-              height: "2px",
+                mode === LightMode
+                  ? "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)"
+                  : "linear-gradient(180deg, rgba(44, 44, 46, 0) 0%, rgba(84, 84, 88, 0.65) 51.44%, rgba(44, 44, 46, 0) 100%)",
             }}
           ></Box>
 
@@ -104,7 +141,7 @@ const Sidebar = () => {
             alignItems="center"
             css={{
               padding: "2px",
-              backgroundColor: "$secondary",
+              backgroundColor: "$secondaryLight",
               borderRadius: "15px",
               marginTop: "13px",
             }}
@@ -115,7 +152,12 @@ const Sidebar = () => {
                 <Flex
                   key={idx}
                   css={{
-                    backgroundColor: idx === 0 ? "$primary" : "",
+                    backgroundColor:
+                      idx === 0
+                        ? mode === LightMode
+                          ? "$primary"
+                          : "#787880"
+                        : "",
                     borderRadius: "15px",
                     width: "40px",
                     height: "40px",
@@ -125,7 +167,7 @@ const Sidebar = () => {
                   alignItems="center"
                 >
                   <img
-                    src={icon}
+                    src={mode === LightMode ? icon?.light : icon?.dark}
                     alt=""
                     style={{
                       width: "14px",
@@ -149,10 +191,16 @@ const Sidebar = () => {
         >
           <Box
             css={{
-              margin: "10px 0",
-              width: "100%",
+              width: "2px",
+              height: "40px",
+              transform: "rotate(90deg)",
+              background:
+                mode === LightMode
+                  ? "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)"
+                  : "linear-gradient(180deg, rgba(44, 44, 46, 0) 0%, rgba(84, 84, 88, 0.65) 51.44%, rgba(44, 44, 46, 0) 100%)",
             }}
           ></Box>
+
           <Tooltip content="Message">
             <Flex
               css={{
@@ -166,7 +214,10 @@ const Sidebar = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <img src={MessageIcon} alt="" />
+              <img
+                src={mode === LightMode ? MessageIcon : MessageIconLight}
+                alt=""
+              />
             </Flex>
           </Tooltip>
         </Flex>

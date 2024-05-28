@@ -21,7 +21,7 @@ const App = () => {
   }, [mode]);
 
   return (
-    <ThemeProvider>
+    <ThemeProvider >
       <TooltipProvider delayDuration={0}>
         <Home />
       </TooltipProvider>

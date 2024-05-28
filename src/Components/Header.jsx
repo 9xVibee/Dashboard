@@ -1,12 +1,31 @@
 import { Box, Flex, Text, Tooltip } from "@sparrowengg/twigs-react";
+
 import SearchIcon from "./../asset/search.svg";
 import DownArrow from "./../asset/downArrow.svg";
+import DownArrowWhite from "./../asset/downArrowWhite.svg";
 import Profile from "./../asset/profile.png";
 import Sun from "./../asset/sun.svg";
+import Moon from "./../asset/moon.svg";
+
 import { useDispatch, useSelector } from "react-redux";
+
 import { DarkMode, LightMode } from "../redux/light-dark/lightDarkTypes";
 
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSeparator,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from "@sparrowengg/twigs-react";
+import { useState } from "react";
+
 const Header = () => {
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+
   const mode = useSelector((store) => store.lightDarkMode);
   const dispatch = useDispatch();
 
@@ -67,7 +86,9 @@ const Header = () => {
             height: "40px",
             transform: "rotate(180deg)",
             background:
-              "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)",
+              mode === LightMode
+                ? "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)"
+                : "linear-gradient(180deg, rgba(44, 44, 46, 0) 0%, rgba(84, 84, 88, 0.65) 51.44%, rgba(44, 44, 46, 0) 100%)",
           }}
         ></Box>
 
@@ -93,35 +114,62 @@ const Header = () => {
           Bessie Cooper
         </Text>
 
-        <Flex
-          justifyContent="center"
-          css={{
-            cursor: "pointer",
-          }}
-          alignItems="center"
-          gap="15px"
+        <DropdownMenu
+          open={isDropDownOpen}
+          onOpenChange={() => setIsDropDownOpen((prev) => !prev)}
         >
-          <img
-            src={Profile}
-            alt=""
-            style={{
-              width: "50px",
-              height: "50px",
+          <DropdownMenuTrigger asChild>
+            <Flex
+              justifyContent="center"
+              css={{
+                cursor: "pointer",
+              }}
+              alignItems="center"
+              gap="15px"
+            >
+              <img
+                src={Profile}
+                alt=""
+                style={{
+                  width: "50px",
+                  height: "50px",
+                }}
+              />
+              <img
+                src={mode === LightMode ? DownArrow : DownArrowWhite}
+                alt=""
+                style={{
+                  width: "10px",
+                  height: "10px",
+                  transform: isDropDownOpen ? "rotate(180deg)" : "",
+                }}
+              />
+            </Flex>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            sideOffset={5}
+            css={{
+              marginRight: "80px",
             }}
-          />
-          <img
-            src={DownArrow}
-            alt=""
-            style={{
-              width: "10px",
-              height: "10px",
-            }}
-          />
-        </Flex>
+          >
+            <DropdownMenuItem>New Tab</DropdownMenuItem>
+
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>More Tools</DropdownMenuSubTrigger>
+
+              <DropdownMenuSubContent sideOffset={2} alignOffset={-5}>
+                <DropdownMenuItem>Save Page As…</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Developer Tools</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Tooltip content="light/dark mode">
           <img
-            src={Sun}
+            src={mode === LightMode ? Moon : Sun}
             alt=""
             style={{
               width: "14px",

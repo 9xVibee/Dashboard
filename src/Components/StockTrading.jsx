@@ -35,7 +35,7 @@ const StockTrading = ({ icon, title, borderBottom, bgColor }) => {
         flexDirection="column"
         css={{
           height: "100%",
-          borderBottom: borderBottom ? "1px solid #ECE9F1" : "",
+          borderBottom: borderBottom ? "1px solid $secondaryLight" : "",
           width: "100%",
           padding: "13px 0",
         }}

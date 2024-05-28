@@ -1,14 +1,19 @@
 import { Flex, Text } from "@sparrowengg/twigs-react";
 
 import AlertIcon from "./../asset/alert-circle.svg";
+import AlertIcon2 from "./../asset/alert-circle2.svg";
 import Frame from "./../asset/frame2.png";
 import Link from "./../asset/link.svg";
 
 import { stockData } from "../utils/data";
 
 import StockTrading from "./StockTrading";
+import { useSelector } from "react-redux";
+import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
 const Superiority = () => {
+  const mode = useSelector((store) => store.lightDarkMode);
+
   return (
     <Flex
       flexDirection="column"
@@ -23,11 +28,12 @@ const Superiority = () => {
             fontWeight: 700,
             fontSize: "$md",
             lineHeight: "28px",
+            color: "$textPrimary",
           }}
         >
           Superiority
         </Text>
-        <img src={AlertIcon} alt="" />
+        <img src={mode == LightMode ? AlertIcon : AlertIcon2} alt="" />
       </Flex>
 
       <img

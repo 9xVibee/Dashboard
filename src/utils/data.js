@@ -29,3 +29,35 @@ export const stockData = [
     bgColor: "#FFE812",
   },
 ];
+
+export const pieInfoData = [
+  {
+    title: "Google.com .Inc",
+    value: "3,124,213 users",
+    color: "#7459D9",
+  },
+  {
+    title: "Google.com .Inc",
+    value: "3,124,213 users",
+    color: "#7459D980",
+  },
+  {
+    title: "Google.com .Inc",
+    value: "3,124,213 users",
+    color: "#7459D9",
+  },
+];
+
+export const progressBarData = [
+  {
+    title: "Online",
+    bgColor: "$mediumPurple",
+    subTitle: "179 users",
+  },
+
+  {
+    title: "Offline",
+    bgColor: "$lightPurple",
+    subTitle: "349 users",
+  },
+];

@@ -1,4 +1,4 @@
-import { Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Pie, PieChart, Tooltip } from "recharts";
 
 const PieChartComp = () => {
   const data = [
@@ -47,18 +47,17 @@ const PieChartComp = () => {
   ];
 
   return (
-    <ResponsiveContainer width={"100%"}>
-      <PieChart width={730} height={250}>
-        <Pie
-          data={data}
-          dataKey="uv"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          fill="#8884d8"
-        />
-      </PieChart>
-    </ResponsiveContainer>
+    <PieChart width={230} height={230}>
+      <Pie
+        data={data}
+        dataKey="uv"
+        nameKey="name"
+        cx="50%"
+        cy="50%"
+        fill="#8884d8"
+      />
+      <Tooltip />
+    </PieChart>
   );
 };
 

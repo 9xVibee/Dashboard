@@ -9,61 +9,65 @@ import {
 } from "recharts";
 
 import CustomToolTip from "./CustomToolTip";
+import { useSelector } from "react-redux";
+import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
 const AreaChartComp = () => {
+  const mode = useSelector((store) => store.lightDarkMode);
+
+  // dummy data
   const data = [
     {
-      name: "Page A",
-      uv: 4000,
+      name: "A",
+      uv: 3000,
       pv: 2400,
       amt: 2400,
     },
     {
-      name: "Page B",
+      name: "B",
       uv: 3000,
       pv: 1398,
       amt: 2210,
     },
     {
-      name: "Page C",
-      uv: 2000,
+      name: "C",
+      uv: 4000,
       pv: 9800,
       amt: 2290,
     },
     {
-      name: "Page D",
-      uv: 2780,
+      name: "D",
+      uv: 8780,
       pv: 3908,
       amt: 2000,
     },
     {
-      name: "Page E",
-      uv: 1890,
+      name: "E",
+      uv: 3890,
       pv: 4800,
       amt: 2181,
     },
     {
-      name: "Page F",
+      name: "F",
       uv: 2390,
       pv: 3800,
       amt: 2500,
     },
     {
-      name: "Page G",
-      uv: 3490,
+      name: "G",
+      uv: 4490,
       pv: 4300,
       amt: 2100,
     },
   ];
 
   return (
-    <ResponsiveContainer width={"100%"} maxHeight={317}>
+    <ResponsiveContainer width={"100%"} height={317}>
       <AreaChart
         data={data}
         margin={{
           top: 35,
         }}
-        height={317}
       >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -81,7 +85,10 @@ const AreaChartComp = () => {
             strokeDasharray: "3 3",
           }}
         />
-        <CartesianGrid vertical={false} stroke="#ECE9F1" />
+        <CartesianGrid
+          vertical={false}
+          stroke={mode === LightMode ? "#ECE9F1" : "#3D3C41"}
+        />
 
         <Area
           type="monotone"

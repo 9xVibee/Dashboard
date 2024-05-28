@@ -1,20 +1,23 @@
 /* eslint-disable react/prop-types */
 import { Flex, Text } from "@sparrowengg/twigs-react";
+import { useSelector } from "react-redux";
+import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
-const CustomToolTip = ({ active, payload, label }) => {
-  console.log(payload[0]?.payload, label);
+const CustomToolTip = ({ active, payload }) => {
+  const mode = useSelector((store) => store.lightDarkMode);
 
   if (active)
     return (
       <Flex
         css={{
-          padding: "14px",
-          backgroundColor: "$primary",
-          boxShadow: "0px 8px 16px 0px #32324714",
-          borderRadius: "8px",
+          padding: "20px",
+          backgroundColor: mode === LightMode ? "#FFFFFF" : "#3A3A3C",
+          boxShadow: "0px 8px 16px 0px #3232470F",
+          borderRadius: "10px",
         }}
         flexDirection="column"
         gap="5px"
+        // className="tooltip"
       >
         <Text
           css={{

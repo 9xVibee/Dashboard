@@ -2,15 +2,18 @@ import { Flex, Text } from "@sparrowengg/twigs-react";
 import AlertIcon from "./../asset/alert-circle.svg";
 import AlertIcon2 from "./../asset/alert-circle2.svg";
 import PieChartComp from "./PieChartComp";
-import { pieInfoData, progressBarData } from "../utils/data";
+import { pieInfoData } from "../utils/data";
 import PieChartInfo from "./PieChartInfo";
 import CustomProgressBar from "./CustomProgressBar";
 import ProgressBarInfo from "./ProgressBarInfo";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 import { useSelector } from "react-redux";
+import SoldUnsold from "../hooks/SoldUnsold";
 
 const PieBarContainer = () => {
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
+
+  const { soldUnsoldData } = SoldUnsold();
 
   return (
     <Flex
@@ -86,7 +89,7 @@ const PieBarContainer = () => {
                 lineHeight: "46px",
               }}
             >
-              594
+              {soldUnsoldData?.total}
             </Text>
             <Text
               css={{
@@ -100,7 +103,10 @@ const PieBarContainer = () => {
             </Text>
           </Flex>
 
-          <CustomProgressBar />
+          <CustomProgressBar
+            soldPercentage={(soldUnsoldData.sold * 100) / soldUnsoldData.total}
+          />
+
           <Flex
             justifyContent="flex-start"
             alignItems="center"
@@ -109,16 +115,17 @@ const PieBarContainer = () => {
               marginTop: "20px",
             }}
           >
-            {progressBarData.map(({ title, bgColor, subTitle }) => {
-              return (
-                <ProgressBarInfo
-                  key={bgColor}
-                  title={title}
-                  bgColor={bgColor}
-                  subTitle={subTitle}
-                />
-              );
-            })}
+            <ProgressBarInfo
+              title={"Sold"}
+              subTitle={soldUnsoldData.sold}
+              bgColor={"$mediumPurple"}
+            />
+
+            <ProgressBarInfo
+              title={"Unsold"}
+              subTitle={soldUnsoldData.unsold}
+              bgColor={"$lightPurple"}
+            />
           </Flex>
         </Flex>
       </Flex>

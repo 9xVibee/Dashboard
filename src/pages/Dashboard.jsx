@@ -1,4 +1,13 @@
-import { Box, Flex, Text, Calendar } from "@sparrowengg/twigs-react";
+import {
+  Box,
+  Flex,
+  Text,
+  Calendar,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+} from "@sparrowengg/twigs-react";
 import {
   Popover,
   PopoverTrigger,
@@ -6,7 +15,7 @@ import {
   PopoverContent,
 } from "@sparrowengg/twigs-react";
 
-import { CalendarIcon } from "./Icons";
+import { CalendarIcon } from "../Components/Icons";
 
 import LeftArrow from "./../asset/leftArrow.svg";
 import moonIconDashboard from "./../asset/moonSvgDemo.svg";
@@ -18,17 +27,22 @@ import HorizontalDots from "./../asset/more-horizontal.svg";
 import HorizontalDotsDark from "./../asset/more-horizontalDark.svg";
 
 import { useState } from "react";
-import AreaChartComp from "./AreaChart";
-import PieBarContainer from "./PieBarContainer";
+import AreaChartComp from "../Components/AreaChart";
+import PieBarContainer from "../Components/PieBarContainer";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { parseDate } from "@internationalized/date";
+import { SetDate } from "../redux/fake-api-data/fakeApiDataTypes";
 
 const Dashboard = () => {
-  const [value, setValue] = useState(parseDate("2023-07-24"));
+  const [value, setValue] = useState(
+    parseDate(new Date().toISOString().substring(0, 10))
+  );
 
-  const mode = useSelector((store) => store.lightDarkMode);
+  const dispatch = useDispatch();
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
+  // Function to formate the date in this format -> month (string) date (number) ex: Feb 1
   function FormattedDateFn() {
     const dateObj = new Date(value);
 
@@ -37,6 +51,15 @@ const Dashboard = () => {
 
     return `${monthStr} ${yearNum}`;
   }
+
+  const handleDateChangeFilter = (date) => {
+    let newDate = new Date(date);
+
+    dispatch({
+      type: SetDate,
+      date: newDate.toISOString().substring(0, 10),
+    });
+  };
 
   return (
     <Flex
@@ -134,6 +157,7 @@ const Dashboard = () => {
           marginTop: "25px",
         }}
       >
+        {/* left total visit section  */}
         <Flex alignItems="center" gap="10px">
           <Text
             css={{
@@ -154,6 +178,7 @@ const Dashboard = () => {
           />
         </Flex>
 
+        {/* right total visit section  */}
         <Flex alignItems="center" gap="30px">
           <Box
             css={{
@@ -196,7 +221,10 @@ const Dashboard = () => {
               }}
             >
               <Calendar
-                onChange={setValue}
+                onChange={(e) => {
+                  handleDateChangeFilter(e);
+                  setValue(e);
+                }}
                 value={value}
                 minValue={parseDate("2023-07-10")}
               />
@@ -204,23 +232,61 @@ const Dashboard = () => {
             </PopoverContent>
           </Popover>
 
-          <Flex
-            css={{
-              padding: "8px",
-              border: "1px solid $secondaryLight",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src={mode == LightMode ? HorizontalDots : HorizontalDotsDark}
-              alt=""
-              style={{
-                width: "14px",
-                height: "14px",
-              }}
-            />
-          </Flex>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Flex
+                css={{
+                  padding: "8px",
+                  border: "1px solid $border",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                <img
+                  src={mode == LightMode ? HorizontalDots : HorizontalDotsDark}
+                  alt=""
+                  style={{
+                    width: "14px",
+                    height: "14px",
+                  }}
+                />
+              </Flex>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent alignOffset={0} sideOffset={5} align="end">
+              <Flex
+                css={{
+                  padding: "5px",
+                  cursor: "pointer",
+                }}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Text>{`All`}</Text>
+              </Flex>
+              <DropdownMenuSeparator />
+              <Flex
+                justifyContent="center"
+                css={{
+                  padding: "5px",
+                  cursor: "pointer",
+                }}
+                alignItems="center"
+              >
+                <Text>{`Count <= 100`}</Text>
+              </Flex>
+              <DropdownMenuSeparator />
+              <Flex
+                css={{
+                  padding: "5px",
+                  cursor: "pointer",
+                }}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Text>{`Count > 100`}</Text>
+              </Flex>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </Flex>
       </Flex>
 

@@ -36,6 +36,7 @@ export default {
         purple: "#5E5CE6",
         mediumPurple: "#5E5CE6",
         lightPurple: "#5E5CE640",
+        border: "#3D3C41",
       },
       fontSizes: {
         xxs: "0.5rem",

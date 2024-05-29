@@ -1,6 +1,8 @@
 import { Box, Flex, Text, Tooltip } from "@sparrowengg/twigs-react";
+import { Input } from "@sparrowengg/twigs-react";
 
-import SearchIcon from "./../asset/search.svg";
+import { SearchIcon } from "./Icons";
+
 import DownArrow from "./../asset/downArrow.svg";
 import DownArrowWhite from "./../asset/downArrowWhite.svg";
 import Profile from "./../asset/profile.png";
@@ -22,11 +24,14 @@ import {
   DropdownMenuSubTrigger,
 } from "@sparrowengg/twigs-react";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
   const dispatch = useDispatch();
 
   const handleModeChange = () => {
@@ -46,38 +51,81 @@ const Header = () => {
       justifyContent="space-between"
     >
       {/* header left section */}
-      <Flex alignItems="center" gap="40px">
-        <Flex justifyContent="flex-start" gap="40px">
-          <Text
-            css={{
-              fontSize: "$md",
-              fontWeight: 600,
-              color: "$textPrimary",
-              cursor: "pointer",
+      <Flex
+        alignItems="center"
+        gap="40px"
+        css={{
+          width: "100%",
+        }}
+      >
+        <Flex
+          justifyContent="flex-start"
+          gap="40px"
+          css={{
+            width: "auto",
+          }}
+        >
+          <Link
+            to={"/"}
+            style={{
+              textDecoration: "none",
             }}
           >
-            Dashboard
-          </Text>
-          <Text
-            css={{
-              fontSize: "$md",
-              cursor: "pointer",
-              fontWeight: 600,
-              color: "$textSecondary",
+            <Text
+              css={{
+                fontSize: "$md",
+                fontWeight: 600,
+                color:
+                  location.pathname == "/" ? "$textPrimary" : "$textSecondary",
+                cursor: "pointer",
+              }}
+            >
+              Dashboard
+            </Text>
+          </Link>
+
+          <Link
+            to={"/advancequarry"}
+            style={{
+              textDecoration: "none",
             }}
           >
-            Advanced Quarry
-          </Text>
-          <Text
-            css={{
-              cursor: "pointer",
-              fontSize: "$md",
-              fontWeight: 600,
-              color: "$textSecondary",
+            <Text
+              css={{
+                fontSize: "$md",
+                cursor: "pointer",
+                fontWeight: 600,
+                color:
+                  location.pathname == "/advancequarry"
+                    ? "$textPrimary"
+                    : "$textSecondary",
+                width: "150px",
+              }}
+            >
+              Advanced Quarry
+            </Text>
+          </Link>
+
+          <Link
+            to={"/events"}
+            style={{
+              textDecoration: "none",
             }}
           >
-            Events
-          </Text>
+            <Text
+              css={{
+                cursor: "pointer",
+                fontSize: "$md",
+                fontWeight: 600,
+                color:
+                  location.pathname == "/events"
+                    ? "$textPrimary"
+                    : "$textSecondary",
+              }}
+            >
+              Events
+            </Text>
+          </Link>
         </Flex>
 
         <Box
@@ -92,13 +140,12 @@ const Header = () => {
           }}
         ></Box>
 
-        <img
-          src={SearchIcon}
-          alt=""
-          style={{
-            width: "24px",
-            height: "24px",
+        <Input
+          css={{
+            width: "53.5% !important",
+            outline: "none",
           }}
+          rightIcon={<SearchIcon />}
         />
       </Flex>
 
@@ -109,6 +156,7 @@ const Header = () => {
             color: "$textPrimary",
             fontWeight: "600",
             fontSize: "$md",
+            width: "120px",
           }}
         >
           Bessie Cooper
@@ -147,12 +195,7 @@ const Header = () => {
             </Flex>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent
-            sideOffset={5}
-            css={{
-              marginRight: "80px",
-            }}
-          >
+          <DropdownMenuContent sideOffset={5} alignOffset={20} align="end">
             <DropdownMenuItem>New Tab</DropdownMenuItem>
 
             <DropdownMenuSub>

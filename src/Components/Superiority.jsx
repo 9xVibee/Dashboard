@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
 const Superiority = () => {
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
   return (
     <Flex

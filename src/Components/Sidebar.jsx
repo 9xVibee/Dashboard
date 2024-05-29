@@ -57,7 +57,7 @@ const IconArr = [
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
   return (
     <>

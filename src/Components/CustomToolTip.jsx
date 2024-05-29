@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
 const CustomToolTip = ({ active, payload }) => {
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
-  if (active)
+  if (active && payload)
     return (
       <Flex
         css={{
@@ -17,7 +17,6 @@ const CustomToolTip = ({ active, payload }) => {
         }}
         flexDirection="column"
         gap="5px"
-        // className="tooltip"
       >
         <Text
           css={{
@@ -25,7 +24,7 @@ const CustomToolTip = ({ active, payload }) => {
             color: "$textSecondary",
           }}
         >
-          This month
+          {payload[0]?.payload?.category} : ₹{payload[0]?.payload?.price}
         </Text>
         <Text
           css={{
@@ -34,7 +33,7 @@ const CustomToolTip = ({ active, payload }) => {
             fontWeight: "700",
           }}
         >
-          This month uv {payload[0]?.payload?.uv}
+          {payload[0].payload?.formattedDate}
         </Text>
       </Flex>
     );

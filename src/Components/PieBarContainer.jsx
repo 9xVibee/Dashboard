@@ -2,17 +2,18 @@ import { Flex, Text } from "@sparrowengg/twigs-react";
 import AlertIcon from "./../asset/alert-circle.svg";
 import AlertIcon2 from "./../asset/alert-circle2.svg";
 import PieChartComp from "./PieChartComp";
-import { pieInfoData } from "../utils/data";
 import PieChartInfo from "./PieChartInfo";
 import CustomProgressBar from "./CustomProgressBar";
 import ProgressBarInfo from "./ProgressBarInfo";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 import { useSelector } from "react-redux";
 import SoldUnsold from "../hooks/SoldUnsold";
+import TopCateogry from "../hooks/TopCateogry";
 
 const PieBarContainer = () => {
   const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
+  const { pieData } = TopCateogry();
   const { soldUnsoldData } = SoldUnsold();
 
   return (
@@ -49,11 +50,11 @@ const PieBarContainer = () => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <PieChartComp />
+          <PieChartComp arr={pieData?.arr} />
           <Flex flexDirection="column" gap="28px">
-            {pieInfoData.map((info) => (
+            {pieData?.pieInfoData.map((info) => (
               <PieChartInfo
-                color={info.color}
+                color={info.color?.[mode]}
                 key={info.color}
                 title={info.title}
                 value={info.value}

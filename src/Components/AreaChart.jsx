@@ -16,12 +16,34 @@ import { Flex, Text } from "@sparrowengg/twigs-react";
 
 const AreaChartComp = () => {
   const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
+  const loading = useSelector((store) => store.fakeapidata.loading);
 
   const { filteredData } = FilterData();
 
   return (
     <ResponsiveContainer width={"100%"} height={347}>
-      {filteredData.length > 0 ? (
+      {loading ? (
+        <Flex
+          css={{
+            marginTop: "25px",
+            height: "320px",
+            width: "100%",
+            border: "1px solid $border",
+            borderRadius: "8px",
+          }}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Text
+            css={{
+              fontSize: "$2xl",
+              fontWeight: "600",
+            }}
+          >
+            Loading...
+          </Text>
+        </Flex>
+      ) : filteredData.length > 0 ? (
         <AreaChart
           data={filteredData}
           margin={{

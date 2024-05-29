@@ -1,4 +1,4 @@
-import { SetData, SetDate } from "./fakeApiDataTypes";
+import { SetCount, SetData, SetDate, SetLoading } from "./fakeApiDataTypes";
 
 const initialState = {
   data: [],
@@ -23,6 +23,19 @@ const FakeApiReducer = (state = initialState, action) => {
       };
     }
 
+    case SetLoading: {
+      return {
+        ...state,
+        loading: action.loading,
+      };
+    }
+
+    case SetCount: {
+      return {
+        ...state,
+        count: action.count,
+      };
+    }
     default:
       return state;
   }

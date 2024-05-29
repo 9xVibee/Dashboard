@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuSeparator,
+  DropdownMenuItem,
 } from "@sparrowengg/twigs-react";
 import {
   Popover,
@@ -32,7 +33,7 @@ import PieBarContainer from "../Components/PieBarContainer";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { parseDate } from "@internationalized/date";
-import { SetDate } from "../redux/fake-api-data/fakeApiDataTypes";
+import { SetCount, SetDate } from "../redux/fake-api-data/fakeApiDataTypes";
 
 const Dashboard = () => {
   const [value, setValue] = useState(
@@ -52,12 +53,21 @@ const Dashboard = () => {
     return `${monthStr} ${yearNum}`;
   }
 
+  // function to set the date in the redux
   const handleDateChangeFilter = (date) => {
     let newDate = new Date(date);
 
     dispatch({
       type: SetDate,
       date: newDate.toISOString().substring(0, 10),
+    });
+  };
+
+  //  function to set the count in the redux
+  const handleCountChange = (value) => {
+    dispatch({
+      type: SetCount,
+      count: value,
     });
   };
 
@@ -252,39 +262,27 @@ const Dashboard = () => {
                 />
               </Flex>
             </DropdownMenuTrigger>
-            <DropdownMenuContent alignOffset={0} sideOffset={5} align="end">
-              <Flex
-                css={{
-                  padding: "5px",
-                  cursor: "pointer",
-                }}
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Text>{`All`}</Text>
-              </Flex>
+            <DropdownMenuContent
+              alignOffset={0}
+              sideOffset={5}
+              align="end"
+              css={{
+                cursor: "pointer",
+              }}
+            >
+              <DropdownMenuItem onClick={() => handleCountChange(null)}>
+                All
+              </DropdownMenuItem>
+
               <DropdownMenuSeparator />
-              <Flex
-                justifyContent="center"
-                css={{
-                  padding: "5px",
-                  cursor: "pointer",
-                }}
-                alignItems="center"
-              >
-                <Text>{`Count <= 100`}</Text>
-              </Flex>
+              <DropdownMenuItem
+                onClick={() => handleCountChange("below 100")}
+              >{`Count <= 100`}</DropdownMenuItem>
+
               <DropdownMenuSeparator />
-              <Flex
-                css={{
-                  padding: "5px",
-                  cursor: "pointer",
-                }}
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Text>{`Count > 100`}</Text>
-              </Flex>
+              <DropdownMenuItem
+                onClick={() => handleCountChange("above 100")}
+              >{`Count > 100`}</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </Flex>

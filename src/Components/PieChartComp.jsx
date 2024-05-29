@@ -1,61 +1,40 @@
 import { Pie, PieChart, Tooltip } from "recharts";
+import FilterData from "../hooks/FilterData";
+import { useSelector } from "react-redux";
+import { LightMode } from "../redux/light-dark/lightDarkTypes";
 
-const PieChartComp = () => {
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+const PieChartComp = ({ arr }) => {
+  const { filteredData } = FilterData();
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
+
+  const firstArr = filteredData?.filter(
+    (item) => item?.category == arr[0]?.[0]
+  );
+
+  const secondTop = filteredData?.filter(
+    (item) => item?.category === arr[1]?.[0]
+  );
 
   return (
     <PieChart width={230} height={230}>
       <Pie
-        data={data}
-        dataKey="uv"
-        nameKey="name"
+        data={firstArr}
+        dataKey="price"
+        nameKey="title"
         cx="50%"
         cy="50%"
-        fill="#8884d8"
+        fill={`${mode === LightMode ? "#7459D9" : "#5E5CE6"}`}
         innerRadius={70}
+      />
+
+      <Pie
+        data={secondTop}
+        dataKey="price"
+        nameKey="title"
+        cx="50%"
+        cy="50%"
+        fill={`${mode === LightMode ? "#7459D980" : "#44448A"}`}
+        outerRadius={50}
       />
       <Tooltip />
     </PieChart>

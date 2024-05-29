@@ -6,7 +6,7 @@ import { LightMode } from "../redux/light-dark/lightDarkTypes";
 const CustomToolTip = ({ active, payload }) => {
   const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
-  if (active && payload)
+  if (active && payload?.length > 0)
     return (
       <Flex
         css={{

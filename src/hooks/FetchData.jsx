@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { LoadingTrue } from "../redux/fake-api-data/fakeApiDataTypes";
+import { SetLoading } from "../redux/fake-api-data/fakeApiDataTypes";
 import FormatData from "../utils/FormatApiData";
 
 const FetchData = () => {
@@ -7,7 +7,8 @@ const FetchData = () => {
 
   const fetchDataFn = async () => {
     dispatch({
-      type: LoadingTrue,
+      type: SetLoading,
+      loading: true,
     });
 
     try {
@@ -15,9 +16,18 @@ const FetchData = () => {
       const data = await res.json();
 
       const formattedData = FormatData(data);
+
+      dispatch({
+        type: SetLoading,
+        loading: false,
+      });
       return formattedData;
     } catch (error) {
       console.log("Error in fetchData!", error);
+      dispatch({
+        type: SetLoading,
+        loading: false,
+      });
     }
   };
 

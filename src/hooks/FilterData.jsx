@@ -25,7 +25,6 @@ const FilterData = () => {
       });
     }
 
-    console.log("new Filtered data", newFilteredData);
     setFilteredData(newFilteredData);
   };
 

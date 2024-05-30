@@ -40,10 +40,6 @@ import {
 import { CalendarRange } from "@sparrowengg/twigs-react";
 
 const Dashboard = () => {
-  // const [value, setValue] = useState(
-  //   parseDate(new Date().toISOString().substring(0, 10))
-  // );
-
   const [value, setValue] = useState({
     start: parseDate(new Date().toISOString().substring(0, 10)),
     end: parseDate(new Date().toISOString().substring(0, 10)),
@@ -61,15 +57,6 @@ const Dashboard = () => {
 
     return `${monthStr} ${yearNum}`;
   }
-
-  //** function to set the date in the redux
-  // const handleDateChangeFilter = (date) => {
-  //   let newDate = new Date(date);
-  //   dispatch({
-  //     type: SetDate,
-  //     date: newDate.toISOString().substring(0, 10),
-  //   });
-  // };
 
   //**  function to set the count in the redux
   const handleCountChange = (value) => {

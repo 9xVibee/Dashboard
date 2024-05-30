@@ -1,5 +1,6 @@
 const FormatData = (data) => {
   let soldArr = [true, false];
+
   let newFormattedData = data?.map((items) => {
     let date = new Date();
     date.setDate(date.getDate() + Math.floor(Math.random() * 100));

@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   Text,
-  Calendar,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -33,19 +32,29 @@ import PieBarContainer from "../Components/PieBarContainer";
 import { LightMode } from "../redux/light-dark/lightDarkTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { parseDate } from "@internationalized/date";
-import { SetCount, SetDate } from "../redux/fake-api-data/fakeApiDataTypes";
+import {
+  SET_DATE_RANGE,
+  SetCount,
+} from "../redux/fake-api-data/fakeApiDataTypes";
+
+import { CalendarRange } from "@sparrowengg/twigs-react";
 
 const Dashboard = () => {
-  const [value, setValue] = useState(
-    parseDate(new Date().toISOString().substring(0, 10))
-  );
+  // const [value, setValue] = useState(
+  //   parseDate(new Date().toISOString().substring(0, 10))
+  // );
+
+  const [value, setValue] = useState({
+    start: parseDate(new Date().toISOString().substring(0, 10)),
+    end: parseDate(new Date().toISOString().substring(0, 10)),
+  });
 
   const dispatch = useDispatch();
   const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
   // Function to formate the date in this format -> month (string) date (number) ex: Feb 1
   function FormattedDateFn() {
-    const dateObj = new Date(value);
+    const dateObj = new Date(value.start);
 
     const monthStr = dateObj.toLocaleString("default", { month: "long" });
     const yearNum = dateObj.getFullYear();
@@ -53,17 +62,16 @@ const Dashboard = () => {
     return `${monthStr} ${yearNum}`;
   }
 
-  // function to set the date in the redux
-  const handleDateChangeFilter = (date) => {
-    let newDate = new Date(date);
+  //** function to set the date in the redux
+  // const handleDateChangeFilter = (date) => {
+  //   let newDate = new Date(date);
+  //   dispatch({
+  //     type: SetDate,
+  //     date: newDate.toISOString().substring(0, 10),
+  //   });
+  // };
 
-    dispatch({
-      type: SetDate,
-      date: newDate.toISOString().substring(0, 10),
-    });
-  };
-
-  //  function to set the count in the redux
+  //**  function to set the count in the redux
   const handleCountChange = (value) => {
     dispatch({
       type: SetCount,
@@ -71,14 +79,26 @@ const Dashboard = () => {
     });
   };
 
+  //**  function to set the calender range date in the redux
+  const handleDateRangeChange = (startDate, endDate) => {
+    const startDateRedux = new Date(startDate);
+    const endDateRedux = new Date(endDate);
+
+    dispatch({
+      type: SET_DATE_RANGE,
+      start: startDateRedux.toISOString().substring(0, 10),
+      end: endDateRedux.toISOString().substring(0, 10),
+    });
+  };
+
   return (
     <Flex
       css={{
-        width: "1080px",
+        padding: "30px",
+        width: "100%",
         height: "calc(100vh - 84px)",
         overflowY: "auto",
         backgroundColor: `$primary`,
-        padding: "34px",
       }}
       flexDirection="column"
     >
@@ -230,12 +250,11 @@ const Dashboard = () => {
                 width: "auto",
               }}
             >
-              <Calendar
+              <CalendarRange
                 onChange={(e) => {
-                  handleDateChangeFilter(e);
                   setValue(e);
+                  handleDateRangeChange(e.start, e.end);
                 }}
-                value={value}
                 minValue={parseDate("2023-07-10")}
               />
               <PopoverArrow />
@@ -275,14 +294,14 @@ const Dashboard = () => {
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => handleCountChange("below 100")}
-              >{`Count <= 100`}</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleCountChange("below 100")}>
+                Below or equal to 100
+              </DropdownMenuItem>
 
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => handleCountChange("above 100")}
-              >{`Count > 100`}</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleCountChange("above 100")}>
+                Above 100
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </Flex>

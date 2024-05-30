@@ -27,17 +27,31 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const [dataSearch, setDataSearch] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
   const location = useLocation();
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
+  const data = useSelector((store) => store.fakeapidata.data);
+
   const dispatch = useDispatch();
 
+  // function to handle the light and dark mode
   const handleModeChange = () => {
     dispatch({
       type: mode === LightMode ? DarkMode : LightMode,
     });
+
+    
+  };
+
+  const getSearchData = (searchVal) => {
+    let newData = data.filter((item) => item.title.includes(searchVal));
+
+    setDataSearch(newData);
   };
 
   return (
@@ -76,7 +90,7 @@ const Header = () => {
                 fontSize: "$md",
                 fontWeight: 600,
                 color:
-                  location.pathname == "/" ? "$textPrimary" : "$textSecondary",
+                  location.pathname === "/" ? "$textPrimary" : "$textSecondary",
                 cursor: "pointer",
               }}
             >
@@ -140,13 +154,58 @@ const Header = () => {
           }}
         ></Box>
 
-        <Input
+        <Box
           css={{
             width: "53.5% !important",
-            outline: "none",
+            position: "relative",
           }}
-          rightIcon={<SearchIcon />}
-        />
+        >
+          <Input
+            css={{
+              width: "100% !important",
+            }}
+            value={searchText}
+            onChange={(e) => {
+              getSearchData(e.target.value);
+              setSearchText(e.target.value);
+            }}
+            rightIcon={<SearchIcon />}
+          />
+          {searchText.length > 0 && (
+            <Flex
+              css={{
+                width: "100%",
+                backgroundColor: "$primary",
+                padding: "20px 10px",
+                position: "absolute",
+                border: "1px solid $border",
+                top: 40,
+                borderRadius: "8px",
+                zIndex: "99",
+              }}
+              flexDirection="column"
+              gap="10px"
+            >
+              {searchText.length && dataSearch.length !== 0 ? (
+                dataSearch.map((item) => (
+                  <Text
+                    css={{
+                      fontWeight: 400,
+                      lineHeight: "15px",
+                      borderBottom: "1px solid $border",
+                      paddingBottom: "5px",
+                    }}
+                    key={item}
+                  >
+                    {item?.title}
+                  </Text>
+                ))
+              ) : (
+                <Text>No data</Text>
+              )}
+            </Flex>
+          )}{" "}
+        </Box>
       </Flex>
 
       {/* Header right section */}

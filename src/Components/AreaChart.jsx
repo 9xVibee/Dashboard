@@ -43,7 +43,7 @@ const AreaChartComp = () => {
             Loading...
           </Text>
         </Flex>
-      ) : filteredData.length > 0 ? (
+      ) : filteredData.length ? (
         <AreaChart
           data={filteredData}
           margin={{
@@ -57,20 +57,9 @@ const AreaChartComp = () => {
             </linearGradient>
           </defs>
 
-          <XAxis
-            dataKey="formattedDate"
-            tickLine={false}
-            tickMargin={10}
-            fontSize={13}
-          />
+          <XAxis dataKey="formattedDate" tickLine={false} fontSize={13} />
 
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            dataKey={"rating.count"}
-            tickCount={5}
-            tickMargin={8}
-          />
+          <YAxis axisLine={false} tickLine={false} dataKey={"price"} />
 
           <Tooltip
             content={<CustomToolTip />}
@@ -78,6 +67,7 @@ const AreaChartComp = () => {
               strokeDasharray: "3 3",
             }}
           />
+
           <CartesianGrid
             vertical={false}
             stroke={mode === LightMode ? "#ECE9F1" : "#3D3C41"}

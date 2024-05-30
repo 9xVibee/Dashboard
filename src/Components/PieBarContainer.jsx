@@ -9,6 +9,7 @@ import { LightMode } from "../redux/light-dark/lightDarkTypes";
 import { useSelector } from "react-redux";
 import SoldUnsold from "../hooks/SoldUnsold";
 import TopCateogry from "../hooks/TopCateogry";
+import { COLORS } from "../utils/data";
 
 const PieBarContainer = () => {
   const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
@@ -52,14 +53,16 @@ const PieBarContainer = () => {
         >
           <PieChartComp arr={pieData?.arr} />
           <Flex flexDirection="column" gap="28px">
-            {pieData?.pieInfoData.map((info) => (
-              <PieChartInfo
-                color={info.color?.[mode]}
-                key={info.color}
-                title={info.title}
-                value={info.value}
-              />
-            ))}
+            {pieData?.arr.map((info, idx) => {
+              return (
+                <PieChartInfo
+                  color={COLORS[idx]}
+                  key={info.title}
+                  title={info[0]}
+                  value={info[1]}
+                />
+              );
+            })}
           </Flex>
         </Flex>
       </Flex>

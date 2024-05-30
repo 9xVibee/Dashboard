@@ -21,6 +21,7 @@ const FetchData = () => {
         type: SetLoading,
         loading: false,
       });
+
       return formattedData;
     } catch (error) {
       console.log("Error in fetchData!", error);

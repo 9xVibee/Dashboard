@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const FilterData = () => {
-  const { count, date } = useSelector((store) => store.fakeapidata);
+  const { count, startDate, endDate } = useSelector(
+    (store) => store.fakeapidata
+  );
   const data = useSelector((store) => store.fakeapidata.data);
 
   const [filteredData, setFilteredData] = useState(data);
@@ -16,21 +18,21 @@ const FilterData = () => {
         else if (count === "above 100" && item?.rating?.count > 100)
           return item;
       });
-    }
+    } 
 
-    if (date) {
-      console.log(date);
-      newFilteredData = filteredData?.filter((item) => {
-        return item.date == date;
+    if (startDate) {
+      newFilteredData = newFilteredData?.filter((item) => {
+        return item.date >= startDate && item.date <= endDate;
       });
     }
 
+    newFilteredData?.sort((a, b) => new Date(a.date) - new Date(b.date));
     setFilteredData(newFilteredData);
   };
 
   useEffect(() => {
     filterData(data);
-  }, [date, count, data]);
+  }, [startDate, count, data]);
 
   return { filteredData };
 };

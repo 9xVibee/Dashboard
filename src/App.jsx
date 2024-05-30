@@ -5,7 +5,7 @@ import {
 } from "@sparrowengg/twigs-react";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import theme from "./../twings.config";
+import theme from "./../twigs.config";
 import { RouterProvider } from "react-router-dom";
 import router from "./Components/Home";
 

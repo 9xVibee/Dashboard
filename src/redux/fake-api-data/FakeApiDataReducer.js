@@ -1,10 +1,17 @@
-import { SetCount, SetData, SetDate, SetLoading } from "./fakeApiDataTypes";
+import {
+  SET_DATE_RANGE,
+  SetCount,
+  SetData,
+  SetDate,
+  SetLoading,
+} from "./fakeApiDataTypes";
 
 const initialState = {
   data: [],
   loading: true,
   count: null,
-  date: null,
+  startDate: null,
+  endDate: null,
 };
 
 const FakeApiReducer = (state = initialState, action) => {
@@ -35,6 +42,10 @@ const FakeApiReducer = (state = initialState, action) => {
         ...state,
         count: action.count,
       };
+    }
+
+    case SET_DATE_RANGE: {
+      return { ...state, startDate: action.start, endDate: action.end };
     }
     default:
       return state;

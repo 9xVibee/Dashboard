@@ -3,6 +3,7 @@ import FilterData from "./FilterData";
 
 const TopCateogry = () => {
   const { filteredData } = FilterData();
+
   const [pieData, setPieData] = useState();
   const colors = [
     {
@@ -25,10 +26,9 @@ const TopCateogry = () => {
     let others = 0;
 
     for (let i = 0; i < filteredData.length; i++) {
-      count[filteredData[i]?.category] =
-        (count[filteredData[i]?.category]
-          ? count[filteredData[i]?.category]
-          : 1) + 1;
+      if (count[filteredData[i]?.category]) {
+        count[filteredData[i]?.category] = count[filteredData[i]?.category] + 1;
+      } else count[filteredData[i]?.category] = 1;
     }
 
     arr = Object.entries(count);
@@ -45,9 +45,7 @@ const TopCateogry = () => {
           value: `${arr2?.[1]} quantity`,
           color: colors[i],
         };
-      }
-
-      others += arr2?.[1];
+      } else others += arr2?.[1];
     }
 
     pieInfoData[2] = {
@@ -55,9 +53,9 @@ const TopCateogry = () => {
       value: `${others} quantity`,
       color: colors[2],
     };
-    setPieData({
-      arr: arr,
-      pieInfoData: pieInfoData,
+
+    setPieData((prev) => {
+      return { ...prev, arr: arr };
     });
   };
 

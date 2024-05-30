@@ -68,6 +68,7 @@ const Dashboard = () => {
 
   //**  function to set the calender range date in the redux
   const handleDateRangeChange = (startDate, endDate) => {
+    console.log("START AND END DATE", startDate, endDate);
     const startDateRedux = new Date(startDate);
     const endDateRedux = new Date(endDate);
 
@@ -227,7 +228,13 @@ const Dashboard = () => {
                   cursor: "pointer",
                 }}
               >
-                <Text>{FormattedDateFn()}</Text>
+                <Text
+                  css={{
+                    color: "$textPrimary",
+                  }}
+                >
+                  {FormattedDateFn()}
+                </Text>
                 <CalendarIcon color={""} />
               </Flex>
             </PopoverTrigger>

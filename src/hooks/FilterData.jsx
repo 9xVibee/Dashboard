@@ -1,11 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const FilterData = () => {
-  const { count, startDate, endDate } = useSelector(
-    (store) => store.fakeapidata
-  );
+  const { count, endDate } = useSelector((store) => store.fakeapidata);
   const data = useSelector((store) => store.fakeapidata.data);
+  const startDate = useSelector((store) => store.fakeapidata.startDate);
 
   const [filteredData, setFilteredData] = useState(data);
 
@@ -18,21 +18,25 @@ const FilterData = () => {
         else if (count === "above 100" && item?.rating?.count > 100)
           return item;
       });
-    } 
+    }
 
     if (startDate) {
       newFilteredData = newFilteredData?.filter((item) => {
-        return item.date >= startDate && item.date <= endDate;
+        return (
+          new Date(item.date) >= new Date(startDate) &&
+          new Date(item.date) <= new Date(endDate)
+        );
       });
     }
 
     newFilteredData?.sort((a, b) => new Date(a.date) - new Date(b.date));
+    console.log(newFilteredData);
     setFilteredData(newFilteredData);
   };
 
   useEffect(() => {
-    filterData(data);
-  }, [startDate, count, data]);
+    filterData();
+  }, [startDate, count, data, endDate]);
 
   return { filteredData };
 };

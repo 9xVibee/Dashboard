@@ -44,8 +44,6 @@ const Header = () => {
     dispatch({
       type: mode === LightMode ? DarkMode : LightMode,
     });
-
-    
   };
 
   const getSearchData = (searchVal) => {
@@ -163,6 +161,7 @@ const Header = () => {
           <Input
             css={{
               width: "100% !important",
+              color: "$textPrimary",
             }}
             value={searchText}
             onChange={(e) => {
@@ -194,6 +193,7 @@ const Header = () => {
                       lineHeight: "15px",
                       borderBottom: "1px solid $border",
                       paddingBottom: "5px",
+                      color: "$textPrimary",
                     }}
                     key={item}
                   >
@@ -201,7 +201,13 @@ const Header = () => {
                   </Text>
                 ))
               ) : (
-                <Text>No data</Text>
+                <Text
+                  css={{
+                    color: "$textPrimary",
+                  }}
+                >
+                  No data
+                </Text>
               )}
             </Flex>
           )}{" "}

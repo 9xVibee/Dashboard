@@ -15,10 +15,7 @@ const PieChartComp = ({ arr }) => {
 
   if (firstArr?.length) {
     return (
-      <PieChart
-        width={230}
-        height={230}
-      >
+      <PieChart width={230} height={230}>
         <Pie
           data={firstArr}
           dataKey="value"
@@ -39,8 +36,8 @@ const PieChartComp = ({ arr }) => {
     return (
       <Flex
         css={{
-          width: "435px",
-          height: "100%",
+          width: "398px",
+          maxHeight: "100%",
         }}
         alignItems="center"
         justifyContent="center"
@@ -49,6 +46,7 @@ const PieChartComp = ({ arr }) => {
           size="xl"
           css={{
             fontWeight: "600",
+            color: "$textPrimary",
           }}
         >
           No Data To show!

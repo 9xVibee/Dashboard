@@ -21,7 +21,7 @@ const AreaChartComp = () => {
   const { filteredData } = FilterData();
 
   return (
-    <ResponsiveContainer width={"100%"} height={347}>
+    <ResponsiveContainer width={"100%"} height={"100%"}>
       {loading ? (
         <Flex
           css={{
@@ -38,6 +38,7 @@ const AreaChartComp = () => {
             css={{
               fontSize: "$2xl",
               fontWeight: "600",
+              color: "$textPrimary",
             }}
           >
             Loading...
@@ -49,6 +50,7 @@ const AreaChartComp = () => {
           margin={{
             top: 35,
           }}
+          height={347}
         >
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -75,7 +77,7 @@ const AreaChartComp = () => {
 
           <Area
             type="monotone"
-            dataKey="price"
+            dataKey="rating.count"
             stroke="#ECE9F1"
             fillOpacity={0.5}
             fill="url(#colorUv)"
@@ -84,7 +86,7 @@ const AreaChartComp = () => {
 
           <Area
             type="monotone"
-            dataKey="rating.count"
+            dataKey="price"
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#colorUv)"
@@ -107,6 +109,7 @@ const AreaChartComp = () => {
             css={{
               fontSize: "$2xl",
               fontWeight: "600",
+              color: "$textPrimary",
             }}
           >
             No data Availabel!

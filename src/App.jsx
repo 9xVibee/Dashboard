@@ -25,7 +25,7 @@ const App = () => {
     <ThemeProvider
       theme={{
         fonts: {
-         body: "DM Sans, Poppins"
+          body: "DM Sans, Poppins",
         },
       }}
     >

@@ -22,7 +22,11 @@ const App = () => {
   }, [mode]);
 
   return (
-    <ThemeProvider>
+    <ThemeProvider
+      theme={{
+        fonts: "DM Sans",
+      }}
+    >
       <TooltipProvider delayDuration={0}>
         <RouterProvider router={router} />
       </TooltipProvider>

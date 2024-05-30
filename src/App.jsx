@@ -3,13 +3,14 @@ import {
   TooltipProvider,
   createTheme,
 } from "@sparrowengg/twigs-react";
-import Home from "./Components/Home";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import theme from "./../twings.config";
+import theme from "./../twigs.config";
+import { RouterProvider } from "react-router-dom";
+import router from "./Components/Home";
 
 const App = () => {
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
   const strRef = useRef("");
 
   useEffect(() => {
@@ -21,9 +22,9 @@ const App = () => {
   }, [mode]);
 
   return (
-    <ThemeProvider >
+    <ThemeProvider>
       <TooltipProvider delayDuration={0}>
-        <Home />
+        <RouterProvider router={router} />
       </TooltipProvider>
     </ThemeProvider>
   );

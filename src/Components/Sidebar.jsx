@@ -57,7 +57,7 @@ const IconArr = [
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const mode = useSelector((store) => store.lightDarkMode);
+  const mode = useSelector((store) => store.lightdarkmode.lightDarkMode);
 
   return (
     <>
@@ -183,9 +183,6 @@ const Sidebar = () => {
         {/* lower container */}
         <Flex
           justifyContent="center"
-          css={{
-            width: "100%",
-          }}
           alignItems="center"
           flexDirection="column"
         >
@@ -199,14 +196,14 @@ const Sidebar = () => {
                   ? "linear-gradient(180deg, rgba(238, 236, 250, 0) 0%, #F9F9F9 51.44%, rgba(238, 236, 250, 0) 100%)"
                   : "linear-gradient(180deg, rgba(44, 44, 46, 0) 0%, rgba(84, 84, 88, 0.65) 51.44%, rgba(44, 44, 46, 0) 100%)",
             }}
-          ></Box>
+          />
 
           <Tooltip content="Message">
             <Flex
               css={{
                 height: "44px",
                 width: "44px",
-                margin: "13px 0",
+                marginBlock: "13px",
                 borderRadius: "15px",
                 backgroundColor: "$secondary",
                 cursor: "pointer",
@@ -223,7 +220,7 @@ const Sidebar = () => {
         </Flex>
       </Flex>
 
-      <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <Drawer placement="left" isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <DrawerBody>Hellow from abhay to Febin!</DrawerBody>
       </Drawer>
     </>

@@ -61,3 +61,5 @@ export const progressBarData = [
     subTitle: "349 users",
   },
 ];
+
+export const COLORS = ["#7459D9", "#5D4C9C", "#B9ABEB", "#E3DEF7"];

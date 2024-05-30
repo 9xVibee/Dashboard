@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Box } from "@sparrowengg/twigs-react";
 
-const CustomProgressBar = () => {
+const CustomProgressBar = ({ soldPercentage }) => {
   return (
     <Box
       css={{
@@ -14,7 +15,7 @@ const CustomProgressBar = () => {
     >
       <Box
         css={{
-          width: `${30}%`,
+          width: `${soldPercentage}%`,
           height: "100%",
           backgroundColor: "$mediumPurple",
           borderRadius: "18px",

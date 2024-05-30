@@ -24,7 +24,9 @@ const App = () => {
   return (
     <ThemeProvider
       theme={{
-        fonts: "DM Sans",
+        fonts: {
+         body: "DM Sans, Poppins"
+        },
       }}
     >
       <TooltipProvider delayDuration={0}>

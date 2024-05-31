@@ -18,7 +18,7 @@ export const CalendarIcon = () => (
       stroke-linejoin="round"
     />
     <path
-      d="M9.33325 1.16663V3.49996"
+      d="M9.3335 1.16663V3.49996"
       stroke="#422F8A"
       stroke-opacity="0.87"
       stroke-width="1.16667"
@@ -26,7 +26,7 @@ export const CalendarIcon = () => (
       stroke-linejoin="round"
     />
     <path
-      d="M4.66675 1.16663V3.49996"
+      d="M4.6665 1.16663V3.49996"
       stroke="#422F8A"
       stroke-opacity="0.87"
       stroke-width="1.16667"

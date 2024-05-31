@@ -7,6 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuItem,
+  Button,
 } from "@sparrowengg/twigs-react";
 import {
   Popover,
@@ -218,27 +219,21 @@ const Dashboard = () => {
 
           <Popover>
             <PopoverTrigger asChild>
-              <Flex
-                alignItems="center"
-                gap="10px"
+              <Button
                 css={{
+                  fontSize: "14px",
+                  color: "$textPrimary",
+                  fontWeight: "400",
                   border: "1px solid $border",
-                  padding: "8px",
-                  borderRadius: "8px",
-                  cursor: "pointer",
+                  padding: "$2 $5 !important",
+                  lineHeight: "22px",
                 }}
+                variant={"ghost"}
+                rightIcon={<CalendarIcon size={10} />}
               >
-                <Text
-                  css={{
-                    color: "$textPrimary",
-                  }}
-                >
-                  {FormattedDateFn()}
-                </Text>
-                <CalendarIcon color={""} />
-              </Flex>
+                {FormattedDateFn()}
+              </Button>
             </PopoverTrigger>
-
             <PopoverContent
               css={{
                 width: "auto",
@@ -246,8 +241,10 @@ const Dashboard = () => {
             >
               <CalendarRange
                 onChange={(e) => {
-                  setValue(e);
-                  handleDateRangeChange(e.start, e.end);
+                  setTimeout(() => {
+                    setValue(e);
+                    handleDateRangeChange(e.start, e.end);
+                  }, 100);
                 }}
                 minValue={parseDate("2023-07-10")}
               />
